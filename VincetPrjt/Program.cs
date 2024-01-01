@@ -7,7 +7,7 @@ string scene;
 scene = "start";
 
 Rectangle rrect = new Rectangle(275, 260, 250, 100);
-//Rectangle Prect = new Rectangle()
+Rectangle pRect = new Rectangle(350,450,100,30);
 Rectangle HudRect = new Rectangle (0,500,800,100);
 
 
@@ -34,6 +34,15 @@ while (!Raylib.WindowShouldClose())
         {
             Raylib.ClearBackground(Color.WHITE);
             Raylib.DrawRectangleRec(HudRect,Color.BLACK);
+            Raylib.DrawRectangleRec(pRect,Color.DARKGREEN);
+            if(Raylib.IsKeyDown(KeyboardKey.KEY_D))
+            {
+            pRect.X += 5;
+            }
+            else if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
+            {
+                pRect.X -= 5;
+            }
         }
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
