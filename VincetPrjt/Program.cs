@@ -6,6 +6,8 @@ using System.Numerics;
 Raylib.InitWindow(800, 600, "hejsan");
 Raylib.SetTargetFPS(60);
 
+Random generator = new Random();
+
 int liv = 5;
 int score = 0;
 string scene;
@@ -44,11 +46,17 @@ while (!Raylib.WindowShouldClose())
         Raylib.DrawRectangleRec(HudRect, Color.BLACK);
         Raylib.DrawRectangleRec(pRect, Color.DARKGREEN);
         Raylib.DrawRectangleRec(enemyRec, Color.RED);
-
+        
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
         //------------------------------------------------------------------------------------------------------------------------
+        if(Raylib.CheckCollisionRecs(pRect,enemyRec))
+        {
+            enemyRec.Y = 0;
+            score ++;
+        }
+        
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             pRect.X += 10;
