@@ -18,6 +18,7 @@ Rectangle pRect = new Rectangle(350, 450, 100, 30);
 Rectangle HudRect = new Rectangle(0, 500, 800, 100);
 Rectangle enemyRec = new Rectangle(350, 0, 50, 50);
 
+
 while (!Raylib.WindowShouldClose())
 {
     Raylib.BeginDrawing();
@@ -47,7 +48,7 @@ while (!Raylib.WindowShouldClose())
         Raylib.DrawRectangleRec(pRect, Color.DARKGREEN);
         Raylib.DrawRectangleRec(enemyRec, Color.RED);
         Raylib.DrawText($"points {score}",50,520,40,Color.WHITE);
-
+        Raylib.DrawText($"Health {liv}", 250, 520,40,Color.WHITE);
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
         //------------------------------------------------------------------------------------------------------------------------
@@ -55,8 +56,9 @@ while (!Raylib.WindowShouldClose())
         {
             enemyRec.Y = 0;
             score ++;
+            enemyRec.X = generator.Next(50,750);
         }
-        
+
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             pRect.X += 10;
@@ -65,6 +67,7 @@ while (!Raylib.WindowShouldClose())
         {
             pRect.X -= 10;
         }
+
         if (liv > 0)
         {
             enemyRec.Y += 2;
