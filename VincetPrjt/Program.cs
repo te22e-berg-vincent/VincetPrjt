@@ -46,7 +46,7 @@ while (!Raylib.WindowShouldClose())
         Raylib.DrawRectangleRec(HudRect, Color.BLACK);
         Raylib.DrawRectangleRec(pRect, Color.DARKGREEN);
         Raylib.DrawRectangleRec(enemyRec, Color.RED);
-        
+        Raylib.DrawText($"points {score}",50,520,40,Color.WHITE);
 
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
