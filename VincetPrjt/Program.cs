@@ -67,7 +67,10 @@ while (!Raylib.WindowShouldClose())
             liv--;
             enemySpeed +=1;
         }
-
+        if (score > 6)
+        {
+            enemySpeed =8;
+        }
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             pRect.X += 10;
