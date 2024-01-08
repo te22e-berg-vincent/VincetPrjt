@@ -2,11 +2,15 @@
 using System.Security.Cryptography;
 using Raylib_cs;
 using System.Numerics;
+
+
 //cahnce för +hp rectangle
 Raylib.InitWindow(800, 600, "hejsan");
 Raylib.SetTargetFPS(60);
 Random rand = new Random();
 int chance = rand.Next(1, 10);
+
+
 //random x för enemyRect
 Random generator = new Random();
 int enemySpeed = 2;
@@ -56,6 +60,13 @@ while (!Raylib.WindowShouldClose())
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
         //------------------------------------------------------------------------------------------------------------------------
+        if (chance > 1)
+        {
+            Raylib.DrawRectangleRec(enemyRec, Color.RED);
+        //--------------------------------------------------------------------
+        //LOGIC FÖR enemyREC
+        //--------------------------------------------------------------------
+          
         if (Raylib.CheckCollisionRecs(pRect, enemyRec))
         {
             enemyRec.Y = 0;
@@ -64,14 +75,11 @@ while (!Raylib.WindowShouldClose())
             enemySpeed += 1;
             chance = rand.Next(1, 10);
         }
-        if (chance > 1)
-        {
-            Raylib.DrawRectangleRec(enemyRec, Color.RED);
-        }
-        else if (chance < 2)
-        {
-            Raylib.DrawRectangleRec(hpRec, Color.GREEN);
-        }
+
+    
+
+
+
         if (Raylib.CheckCollisionRecs(HudRect, enemyRec))
         {
             enemyRec.Y = 0;
@@ -79,10 +87,46 @@ while (!Raylib.WindowShouldClose())
             enemySpeed += 1;
             chance = rand.Next(1, 10);
         }
-        if (score > 6)
+        if (score > 7)
         {
-            enemySpeed = 8; //spelet slutar snabbas up efter 6 poäng
+            enemySpeed = 9; //spelet slutar snabbas up efter 6 poäng
         }
+
+
+        if (liv > 0)
+        {
+            enemyRec.Y += enemySpeed;
+        }
+        }  
+        //--------------------------------------------------------------------
+        //LOGIC FÖR hpREC
+        //--------------------------------------------------------------------
+        else if (chance <= 1)
+        {
+            Raylib.DrawRectangleRec(hpRec, Color.GREEN);
+             
+        
+        if (Raylib.CheckCollisionRecs(pRect,hpRec))
+        {
+            hpRec.Y = 0;
+            hpRec.X = generator.Next(50,750);
+            liv ++;
+            chance = rand.Next(1, 10);
+        }
+        if (liv > 0)
+        {
+        hpRec.Y += 3;
+        }
+
+        if (Raylib.CheckCollisionRecs(HudRect,hpRec))
+        {
+            hpRec.Y=0;
+            chance = rand.Next(1,10);
+        }
+        }
+        //--------------------------------------------------------------------
+        //LOGIC FÖR playerREC
+        //--------------------------------------------------------------------
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             pRect.X += 10;
@@ -91,12 +135,6 @@ while (!Raylib.WindowShouldClose())
         {
             pRect.X -= 10;
         }
-
-        if (liv > 0)
-        {
-            enemyRec.Y += enemySpeed;
-        }
-
     }
 
 
