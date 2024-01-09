@@ -164,7 +164,7 @@ while (!Raylib.WindowShouldClose())
         {
             Raylib.ClearBackground(Color.WHITE);
             Raylib.DrawText("GAME OVER",170,250,80,Color.BLACK);
-            Raylib.DrawText("Press Space Enter to try again",250,350,20,Color.BLACK);
+            Raylib.DrawText("Press Enter to try again",250,350,20,Color.BLACK);
             Raylib.DrawText("press Escape to exit game",280,380,20,Color.BLACK);
             if(Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
             {
