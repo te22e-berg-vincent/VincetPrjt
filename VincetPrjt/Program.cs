@@ -4,7 +4,7 @@ using Raylib_cs;
 using System.Numerics;
 
 
-//cahnce för +hp rectangle
+//chance för +hp rectangle
 Raylib.InitWindow(800, 600, "hejsan");
 Raylib.SetTargetFPS(60);
 Random rand = new Random();
@@ -14,7 +14,7 @@ int chance = rand.Next(1, 10);
 //random x för enemyRect
 Random generator = new Random();
 int enemySpeed = 2;
-int pSpeed = 13;
+int pSpeed = 12;
 
 
 int liv = 3;
@@ -124,13 +124,14 @@ while (!Raylib.WindowShouldClose())
         if (Raylib.CheckCollisionRecs(HudRect,hpRec))
         {
             hpRec.Y=0;
+            liv --;
             chance = rand.Next(1,10);
         }
         }
         //--------------------------------------------------------------------
         //LOGIC FÖR playerREC
         //--------------------------------------------------------------------
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) 
         {
             pRect.X += pSpeed;
         }
@@ -139,7 +140,7 @@ while (!Raylib.WindowShouldClose())
             pRect.X -= pSpeed;
         }
 
-        if ( pRect.X <0)
+        if ( pRect.X <0) //om spelaren går mot väggen så åker dem inte utanför.
         {
             pRect.X += pSpeed;
         }
