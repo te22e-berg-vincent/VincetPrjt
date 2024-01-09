@@ -14,8 +14,10 @@ int chance = rand.Next(1, 10);
 //random x för enemyRect
 Random generator = new Random();
 int enemySpeed = 2;
+int pSpeed = 13;
 
-int liv = 5;
+
+int liv = 3;
 int score = 0;
 string scene;
 scene = "start";
@@ -130,12 +132,25 @@ while (!Raylib.WindowShouldClose())
         //--------------------------------------------------------------------
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
-            pRect.X += 12;
+            pRect.X += pSpeed;
         }
         else if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
         {
-            pRect.X -= 12;
+            pRect.X -= pSpeed;
         }
+
+        if ( pRect.X <0)
+        {
+            pRect.X += pSpeed;
+        }
+        else if(pRect.X>700)
+        {
+            pRect.X -=pSpeed;
+        }
+
+        //--------------------------------------------------------------------
+        //Game Over Logic
+        //--------------------------------------------------------------------
         if (liv==0)
         {
             scene = "gameOver";
@@ -153,7 +168,7 @@ while (!Raylib.WindowShouldClose())
             if(Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
             {
                 score = 0;
-                liv =5;
+                liv =3;
                 scene = "game";
                 enemySpeed = 2;
             }
