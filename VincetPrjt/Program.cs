@@ -62,76 +62,76 @@ while (!Raylib.WindowShouldClose())
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
         //------------------------------------------------------------------------------------------------------------------------
-  
+
         if (chance > 1)
         {
             Raylib.DrawRectangleRec(enemyRec, Color.RED);
-        //--------------------------------------------------------------------
-        //LOGIC FÖR enemyREC
-        //--------------------------------------------------------------------
-          
-        if (Raylib.CheckCollisionRecs(pRect, enemyRec))
-        {
-            enemyRec.Y = 0;
-            score++;
-            enemyRec.X = generator.Next(0, 750); //min & max x värde som rectangeln kan spawna på
-            enemySpeed += 1;
-            chance = rand.Next(1, 10);
+            //--------------------------------------------------------------------
+            //LOGIC FÖR enemyREC
+            //--------------------------------------------------------------------
+
+            if (Raylib.CheckCollisionRecs(pRect, enemyRec))
+            {
+                enemyRec.Y = 0;
+                score++;
+                enemyRec.X = generator.Next(0, 750); //min & max x värde som rectangeln kan spawna på
+                enemySpeed += 1;
+                chance = rand.Next(1, 10);
+            }
+
+
+
+
+
+            if (Raylib.CheckCollisionRecs(HudRect, enemyRec))
+            {
+                enemyRec.Y = 0;
+                liv--;
+                enemySpeed += 1;
+                chance = rand.Next(1, 10);
+            }
+            if (score > 8)
+            {
+                enemySpeed = 10; //spelet slutar snabbas up efter 6 poäng
+            }
+
+
+            if (liv > 0)
+            {
+                enemyRec.Y += enemySpeed;
+            }
         }
-
-    
-
-
-
-        if (Raylib.CheckCollisionRecs(HudRect, enemyRec))
-        {
-            enemyRec.Y = 0;
-            liv--;
-            enemySpeed += 1;
-            chance = rand.Next(1, 10);
-        }
-        if (score > 7)
-        {
-            enemySpeed = 9; //spelet slutar snabbas up efter 6 poäng
-        }
-
-
-        if (liv > 0)
-        {
-            enemyRec.Y += enemySpeed;
-        }
-        }  
         //--------------------------------------------------------------------
         //LOGIC FÖR hpREC
         //--------------------------------------------------------------------
         else if (chance <= 1)
         {
             Raylib.DrawRectangleRec(hpRec, Color.GREEN);
-             
-        
-        if (Raylib.CheckCollisionRecs(pRect,hpRec))
-        {
-            hpRec.Y = 0;
-            hpRec.X = generator.Next(0,750);
-            liv ++;
-            chance = rand.Next(1, 10);
-        }
-        if (liv > 0)
-        {
-        hpRec.Y += 5;
-        }
 
-        if (Raylib.CheckCollisionRecs(HudRect,hpRec))
-        {
-            hpRec.Y=0;
-            liv --;
-            chance = rand.Next(1,10);
-        }
+
+            if (Raylib.CheckCollisionRecs(pRect, hpRec))
+            {
+                hpRec.Y = 0;
+                hpRec.X = generator.Next(0, 750);
+                liv++;
+                chance = rand.Next(1, 10);
+            }
+            if (liv > 0)
+            {
+                hpRec.Y += 5;
+            }
+
+            if (Raylib.CheckCollisionRecs(HudRect, hpRec))
+            {
+                hpRec.Y = 0;
+                liv-=2;
+                chance = rand.Next(1, 10);
+            }
         }
         //--------------------------------------------------------------------
         //LOGIC FÖR playerREC
         //--------------------------------------------------------------------
-        if (Raylib.IsKeyDown(KeyboardKey.KEY_D)) 
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
             pRect.X += pSpeed;
         }
@@ -140,19 +140,19 @@ while (!Raylib.WindowShouldClose())
             pRect.X -= pSpeed;
         }
 
-        if ( pRect.X <0) //om spelaren går mot väggen så åker dem inte utanför.
+        if (pRect.X < 0) //om spelaren går mot väggen så åker dem inte utanför.
         {
             pRect.X += pSpeed;
         }
-        else if(pRect.X>700)
+        else if (pRect.X > 700)
         {
-            pRect.X -=pSpeed;
+            pRect.X -= pSpeed;
         }
 
         //--------------------------------------------------------------------
         //Game Over Logic
         //--------------------------------------------------------------------
-        if (liv==0)
+        if (liv <= 0)
         {
             scene = "gameOver";
         }
@@ -160,21 +160,21 @@ while (!Raylib.WindowShouldClose())
 
     }
 
-        if (scene == "gameOver")
+    if (scene == "gameOver")
+    {
+        Raylib.ClearBackground(Color.WHITE);
+        Raylib.DrawText("GAME OVER", 170, 250, 80, Color.BLACK);
+        Raylib.DrawText("Press Enter to try again", 285, 350, 20, Color.BLACK);
+        Raylib.DrawText("press Escape to exit game", 280, 380, 20, Color.BLACK);
+        if (Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
         {
-            Raylib.ClearBackground(Color.WHITE);
-            Raylib.DrawText("GAME OVER",170,250,80,Color.BLACK);
-            Raylib.DrawText("Press Enter to try again",250,350,20,Color.BLACK);
-            Raylib.DrawText("press Escape to exit game",280,380,20,Color.BLACK);
-            if(Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
-            {
-                score = 0;
-                liv =3;
-                scene = "game";
-                enemySpeed = 2;
-            }
-            
+            score = 0;
+            liv = 3;
+            scene = "game";
+            enemySpeed = 2;
         }
+
+    }
 
 
 
