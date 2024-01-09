@@ -60,6 +60,7 @@ while (!Raylib.WindowShouldClose())
         //--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
         // GAME LOGIC
         //------------------------------------------------------------------------------------------------------------------------
+  
         if (chance > 1)
         {
             Raylib.DrawRectangleRec(enemyRec, Color.RED);
@@ -71,7 +72,7 @@ while (!Raylib.WindowShouldClose())
         {
             enemyRec.Y = 0;
             score++;
-            enemyRec.X = generator.Next(50, 750); //min & max x värde som rectangeln kan spawna på
+            enemyRec.X = generator.Next(0, 750); //min & max x värde som rectangeln kan spawna på
             enemySpeed += 1;
             chance = rand.Next(1, 10);
         }
@@ -109,13 +110,13 @@ while (!Raylib.WindowShouldClose())
         if (Raylib.CheckCollisionRecs(pRect,hpRec))
         {
             hpRec.Y = 0;
-            hpRec.X = generator.Next(50,750);
+            hpRec.X = generator.Next(0,750);
             liv ++;
             chance = rand.Next(1, 10);
         }
         if (liv > 0)
         {
-        hpRec.Y += 3;
+        hpRec.Y += 5;
         }
 
         if (Raylib.CheckCollisionRecs(HudRect,hpRec))
@@ -129,15 +130,35 @@ while (!Raylib.WindowShouldClose())
         //--------------------------------------------------------------------
         if (Raylib.IsKeyDown(KeyboardKey.KEY_D))
         {
-            pRect.X += 10;
+            pRect.X += 12;
         }
         else if (Raylib.IsKeyDown(KeyboardKey.KEY_A))
         {
-            pRect.X -= 10;
+            pRect.X -= 12;
         }
+        if (liv==0)
+        {
+            scene = "gameOver";
+        }
+
+
     }
 
-
+        if (scene == "gameOver")
+        {
+            Raylib.ClearBackground(Color.WHITE);
+            Raylib.DrawText("GAME OVER",170,250,80,Color.BLACK);
+            Raylib.DrawText("Press Space Enter to try again",250,350,20,Color.BLACK);
+            Raylib.DrawText("press Escape to exit game",280,380,20,Color.BLACK);
+            if(Raylib.IsKeyDown(KeyboardKey.KEY_ENTER))
+            {
+                score = 0;
+                liv =5;
+                scene = "game";
+                enemySpeed = 2;
+            }
+            
+        }
 
 
 
